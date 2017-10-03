@@ -1,0 +1,45 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from CartaoWSService WSDL service -->
+
+  <service name="CartaoWS" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://ws.programabolsas.compasso.com.br"/>
+      <parameter name="wsdlServiceElement" value="CartaoWSService"/>
+      <parameter name="schemaQualified" value="http://ws.programabolsas.compasso.com.br,http://model.programabolsas.compasso.com.br"/>
+      <parameter name="wsdlServicePort" value="CartaoWS"/>
+      <parameter name="className" value="br.com.compasso.programabolsas.ws.CartaoWSSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="CartaoWS"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="validaCartao" qname="operNS:validaCartao" xmlns:operNS="http://ws.programabolsas.compasso.com.br" returnQName="retNS:validaCartaoReturn" xmlns:retNS="http://ws.programabolsas.compasso.com.br" returnType="rtns:RetornoCartaoDeCredito" xmlns:rtns="http://model.programabolsas.compasso.com.br" soapAction="" >
+        <parameter qname="pns:cartaoDeCredito" xmlns:pns="http://ws.programabolsas.compasso.com.br" type="tns:CartaoDeCredito" xmlns:tns="http://model.programabolsas.compasso.com.br"/>
+      </operation>
+      <parameter name="allowedMethods" value="validaCartao"/>
+
+      <typeMapping
+        xmlns:ns="http://model.programabolsas.compasso.com.br"
+        qname="ns:RetornoCartaoDeCredito"
+        type="java:br.com.compasso.programabolsas.model.RetornoCartaoDeCredito"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://model.programabolsas.compasso.com.br"
+        qname="ns:CartaoDeCredito"
+        type="java:br.com.compasso.programabolsas.model.CartaoDeCredito"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://ws.programabolsas.compasso.com.br" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://ws.programabolsas.compasso.com.br" xmlns:intf="http://ws.programabolsas.compasso.com.br" xmlns:tns1="http://model.programabolsas.compasso.com.br" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://ws.programabolsas.compasso.com.br" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://model.programabolsas.compasso.com.br"/>
+   <element name="validaCartao">
+    <complexType>
+     <sequence>
+      <element name="cartaoDeCredito" type="tns1:CartaoDeCredito"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="validaCartaoResponse">
+    <complexType>
+     <sequence>
+      <element name="validaCartaoReturn" type="tns1:RetornoCartaoDeCredito"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://model.programabolsas.compasso.com.br" xmlns="http://www.w3.org/2001/XMLSchema">
+   <complexType name="CartaoDeCredito">
+    <sequence>
+     <element name="bandeira" nillable="true" type="xsd:string"/>
+     <element name="codigoVerificador" nillable="true" type="xsd:string"/>
+     <element name="dtValidade" nillable="true" type="xsd:string"/>
+     <element name="nomeTitular" nillable="true" type="xsd:string"/>
+     <element name="nroCartao" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="RetornoCartaoDeCredito">
+    <sequence>
+     <element name="msg" nillable="true" type="xsd:string"/>
+     <element name="valido" type="xsd:boolean"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="validaCartaoRequest">
+
+      <wsdl:part element="impl:validaCartao" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="validaCartaoResponse">
+
+      <wsdl:part element="impl:validaCartaoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="CartaoWS">
+
+      <wsdl:operation name="validaCartao">
+
+         <wsdl:input message="impl:validaCartaoRequest" name="validaCartaoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:validaCartaoResponse" name="validaCartaoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="CartaoWSSoapBinding" type="impl:CartaoWS">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="validaCartao">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="validaCartaoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="validaCartaoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="CartaoWSService">
+
+      <wsdl:port binding="impl:CartaoWSSoapBinding" name="CartaoWS">
+
+         <wsdlsoap:address location="http://localhost:8080/WebServicesExercicio/services/CartaoWS"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
